@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STM Adoni Town Ramzan 2025 - Oroxonix Tech</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --islamic-green: #228B22;
+            --golden-accent: #FFD700;
+        }
+
+        .header-design {
+            background: linear-gradient(135deg, var(--islamic-green) 0%, #228B22 100%);
+            color: white;
+            padding: 2rem 1rem;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .countdown-card {
+            background: white;
+            border: 2px solid var(--golden-accent);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .dua-card {
+            border-left: 4px solid var(--islamic-green);
+            background: rgba(34,134,34,0.05);
+        }
+
+        .footer-brand {
+            background: var(--islamic-green);
+            color: white;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .table-responsive {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light">
+   <style>
+/* Header Styling */
+header {
+    display: flex; 
+    align-items: center; 
+    padding: 10px 20px; 
+    background-color: #008000; /* Light Gray Background */
+    
+}
+
+/* Logo Container */
+.logo-container {
+    margin-right: 15px; /* Space between logo and title */
+}
+
+/* Logo Styling */
+.logo {
+    width: 50px;  /* Small Logo Size */
+    height: auto; /* Maintain Aspect Ratio */
+}
+
+/* Title Styling */
+h1 {
+    font-size: 25px; /* Adjust Title Size */
+    color: #FFFFFF; /* Dark Text Color */
+    margin: 0; /* Remove Default Margin */
+}
+</style>
+
+<header>
+    <div class="logo-container">
+        <img src="cjzKPD" alt="Logo" class="logo">
+    </div>
+    <h1>SUNNI TABLIGI MISSION</h1>
+</header>
+    <!-- Header Section -->
+    <header class="header-design">
+        <div class="container text-center">
+            <h1>Adoni Town Ramzan 2025</h>
+            <p class="lead">Accurate Sehri & Iftar Timings</p>
+           <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+    <button class="btn btn-light" onclick="downloadWithBranding()">
+        <i class="fas fa-download"></i> Download Timetable
+    </button>
+
+    <button class="btn btn-primary" onclick="sharePage()">
+        <i class="fas fa-share-alt"></i> Share
+    </button>
+</div>
+</div>
+
+<script>
+function sharePage() {
+    if (navigator.share) {
+        navigator.share({
+            title: document.title,
+            url: window.location.href
+        }).catch(console.error);
+    } else {
+        alert("Sharing not supported on this browser.");
+    }
+}
+</script>
+        </div>
+    </header>
+
+    <div class="container my-5">
+        <!-- Countdown Section -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-6">
+                <div class="countdown-card text-center">
+                    <h4 id="sehriTitle">Next Sehri In</h4>
+                    <div id="sehriCountdown" class="display-4 text-success"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="countdown-card text-center">
+                    <h4 id="iftarTitle">Next Iftar In</h4>
+                    <div id="iftarCountdown" class="display-4 text-danger"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dua Section -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-6">
+                <div class="dua-card p-4">
+                    <h4 class="text-success"><i class="fas fa-sun"></i> Sehri Dua</h4>
+                    <p class="lead arabic-text">وَبِصَوْمِ غَدٍ نَّوَيْتُ مِنْ شَهْرِ رَمَضَانَ</p>
+                    <p class="text-muted">"I intend to keep the fast tomorrow in Ramadan"</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="dua-card p-4">
+                    <h4 class="text-success"><i class="fas fa-moon"></i> Iftar Dua</h4>
+                    <p class="lead arabic-text">اللَّهُمَّ لَكَ صُمْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ</p>
+                    <p class="text-muted">"O Allah! For You I fasted and with Your provision I break"</p>
+                </div>
+            </div>
+        </div>
+      
+       <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Search Input Box Create & Add
+    const searchInput = document.createElement("input");
+    searchInput.type = "text";
+    searchInput.id = "searchTimetable";
+    searchInput.className = "form-control my-3";
+    searchInput.placeholder = "Search by Roza, Date, Day, Sehr, or Iftar...";
+    
+    // Insert Search Bar Above Table
+    const table = document.querySelector(".table-responsive");
+    table.parentNode.insertBefore(searchInput, table);
+
+    // Search Functionality
+    searchInput.addEventListener("input", function() {
+        const query = searchInput.value.toLowerCase().trim();
+        const rows = document.querySelectorAll("tbody tr");
+
+        rows.forEach(row => {
+            const columns = row.querySelectorAll("td");
+
+            // Ensure row has at least 5 columns (to prevent errors)
+            if (columns.length < 5) return;
+
+            const roza = columns[0].textContent.trim().toLowerCase(); // Roza Number
+            const date = columns[1].textContent.trim().toLowerCase(); // Date
+            const day = columns[2].textContent.trim().toLowerCase(); // Day
+            const sehr = columns[3].textContent.trim().toLowerCase(); // Sehr Time
+            const iftar = columns[4].textContent.trim().toLowerCase(); // Iftar Time
+
+            // Convert Roza Number to String for Searching
+            if (
+                roza.includes(query) || 
+                date.includes(query) || 
+                day.includes(query) || 
+                sehr.includes(query) || 
+                iftar.includes(query)
+            ) {
+                row.style.display = ""; // Show Matching Row
+            } else {
+                row.style.display = "none"; // Hide Non-Matching Rows
+            }
+        });
+    });
+});
+</script>
+      
+        <!-- Timetable -->
+        <div class="card shadow" id="mainTable">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-success">
+                        <td colspan="5" class="text-center text-muted" style="color: #000000 !important;">
+    <strong>STM ADONI RAMZAN CARD 2025</strong>
+</td>
+                            <tr>
+                                <th>Roza</th>
+                                <th>Date</th>
+                                <th>Day</th>
+                                <th>Sehri</th>
+                                <th>Iftar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 30 Days Complete Data -->
+                                <tr><td>1</td><td>02 Mar</td><td>Sun</td><td>05:15 AM</td><td>06:30 PM</td></tr>
+    <tr><td>2</td><td>03-Mar</td><td>Mon</td><td>05:14 AM</td><td>06:30 PM</td></tr>
+    <tr><td>3</td><td>04-Mar</td><td>Tue</td><td>05:14 AM</td><td>06:30 PM</td></tr>
+    <tr><td>4</td><td>05-Mar</td><td>Wed</td><td>05:13 AM</td><td>06:30 PM</td></tr>
+    <tr><td>5</td><td>06-Mar</td><td>Thu</td><td>05:13 AM</td><td>06:30 PM</td></tr>
+    <tr><td>6</td><td>07-Mar</td><td>Fri</td><td>05:12 AM</td><td>06:31 PM</td></tr>
+    <tr><td>7</td><td>08-Mar</td><td>Sat</td><td>05:11 AM</td><td>06:31 PM</td></tr>
+    <tr><td>8</td><td>09-Mar</td><td>Sun</td><td>05:10 AM</td><td>06:31 PM</td></tr>
+    <tr><td>9</td><td>10-Mar</td><td>Mon</td><td>05:09 AM</td><td>06:31 PM</td></tr>
+    <tr><td>10</td><td>11-Mar</td><td>Tue</td><td>05:08 AM</td><td>06:31 PM</td></tr>
+    <tr><td>11</td><td>12-Mar</td><td>Wed</td><td>05:08 AM</td><td>06:31 PM</td></tr>
+    <tr><td>12</td><td>13-Mar</td><td>Thu</td><td>05:07 AM</td><td>06:32 PM</td></tr>
+    <tr><td>13</td><td>14-Mar</td><td>Fri</td><td>05:06 AM</td><td>06:32 PM</td></tr>
+    <tr><td>14</td><td>15-Mar</td><td>Sat</td><td>05:05 AM</td><td>06:32 PM</td></tr>
+    <tr><td>15</td><td>16-Mar</td><td>Sun</td><td>05:04 AM</td><td>06:32 PM</td></tr>
+    <tr><td>16</td><td>17-Mar</td><td>Mon</td><td>05:03 AM</td><td>06:32 PM</td></tr>
+    <tr><td>17</td><td>18-Mar</td><td>Tue</td><td>05:02 AM</td><td>06:32 PM</td></tr>
+    <tr><td>18</td><td>19-Mar</td><td>Wed</td><td>05:01 AM</td><td>06:33 PM</td></tr>
+    <tr><td>19</td><td>20-Mar</td><td>Thu</td><td>05:00 AM</td><td>06:33 PM</td></tr>
+    <tr><td>20</td><td>21-Mar</td><td>Fri</td><td>04:59 AM</td><td>06:33 PM</td></tr>
+    <tr><td>21</td><td>22-Mar</td><td>Sat</td><td>04:58 AM</td><td>06:33 PM</td></tr>
+    <tr><td>22</td><td>23-Mar</td><td>Sun</td><td>04:57 AM</td><td>06:33 PM</td></tr>
+    <tr><td>23</td><td>24-Mar</td><td>Mon</td><td>04:56 AM</td><td>06:33 PM</td></tr>
+    <tr><td>24</td><td>25-Mar</td><td>Tue</td><td>04:55 AM</td><td>06:33 PM</td></tr>
+    <tr><td>25</td><td>26-Mar</td><td>Wed</td><td>04:54 AM</td><td>06:34 PM</td></tr>
+    <tr><td>26</td><td>27-Mar</td><td>Thu</td><td>04:53 AM</td><td>06:34 PM</td></tr>
+    <tr><td>27</td><td>28-Mar</td><td>Fri</td><td>04:52 AM</td><td>06:34 PM</td></tr>
+    <tr><td>28</td><td>29-Mar</td><td>Sat</td><td>04:51 AM</td><td>06:34 PM</td></tr>
+    <tr><td>29</td><td>30-Mar</td><td>Sun</td><td>04:50 AM</td><td>06:34 PM</td></tr>
+    <tr><td>30</td><td>31-Mar</td><td>Mon</td><td>04:49 AM</td><td>06:34 PM</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+  </div>
+
+<!-- Footer Section -->
+<footer class="footer-brand text-center">
+    <div class="container">
+        <p class="mb-0">
+            <a href="mailto:testing17741@gmail.com" class="text-white"><strong>Oroxonix Tech</strong></a> | © 2025 All Rights Reserved
+        </p>
+    </div>
+</footer>
+
+<!-- Footer CSS -->
+<style>
+.footer-brand {
+    background: #228B22; /* Islamic Green */
+    color: white;
+    padding: 1rem 0;
+    font-size: 1rem;
+}
+
+.footer-brand a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer-brand a:hover {
+    text-decoration: underline;
+}
+</style>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        // Countdown Logic
+        function updateCountdown() {
+            const now = new Date();
+            let nextSehri = null;
+            let nextIftar = null;
+
+            document.querySelectorAll('tbody tr').forEach(row => {
+                const cells = row.cells;
+                const dateStr = cells[1].textContent;
+                const sehriTime = parseTime(dateStr, cells[3].textContent);
+                const iftarTime = parseTime(dateStr, cells[4].textContent);
+                const rozaNumber = cells[0].textContent;
+
+                // Check for next events
+if (sehriTime > now && (!nextSehri || sehriTime < nextSehri.time)) {
+    nextSehri = { time: sehriTime, roza: rozaNumber };
+}
+if (iftarTime > now && (!nextIftar || iftarTime < nextIftar.time)) {
+    nextIftar = { time: iftarTime, roza: rozaNumber };
+}
+});
+
+function updateDisplay(target, prefix) {
+    if (target) {
+        const diff = target.time - now;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById(`${prefix}Countdown`).textContent = 
+            `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        document.getElementById(`${prefix}Title`).textContent = 
+            `Roza ${target.roza} ${prefix.charAt(0).toUpperCase() + prefix.slice(1)}`;
+    }
+}
+
+updateDisplay(nextSehri, 'sehri');
+updateDisplay(nextIftar, 'iftar');
+}
+
+// Corrected Time Parser
+function parseTime(dateStr, timeStr) {
+    const [day, monthName] = dateStr.split(' ');
+    const monthMap = {
+        'January': '01', 'February': '02', 'March': '03', 'April': '04',
+        'May': '05', 'June': '06', 'July': '07', 'August': '08',
+        'September': '09', 'October': '10', 'November': '11', 'December': '12',
+        // Add mappings for other month names if necessary (e.g., 'Ramazan': '03')
+    };
+    const month = monthMap[monthName] || '03'; // Default to March if not found
+    const [time, period] = timeStr.split(' ');
+    let [hours, minutes] = time.split(':').map(Number);
+    
+    if (period === 'PM' && hours !== 12) hours += 12;
+    if (period === 'AM' && hours === 12) hours = 0;
+    
+    const formattedDay = day.padStart(2, '0');
+    const formattedHours = hours.toString().padStart(2, '0');
+    const formattedMinutes = minutes.toString().padStart(2, '0');
+    
+    return new Date(`2025-${month}-${formattedDay}T${formattedHours}:${formattedMinutes}:00+05:30`);
+}
+
+        function downloadWithBranding() {
+    const searchInput = document.getElementById("searchTimetable");
+    if (searchInput) searchInput.style.display = "none"; // Hide search bar
+
+    html2canvas(document.querySelector("#mainTable"), {
+        onclone: (clonedDoc) => {
+            const watermark = clonedDoc.createElement('div');
+            watermark.style.position = 'fixed';
+            watermark.style.bottom = '10px';
+            watermark.style.right = '10px';
+            watermark.style.color = '#228B22';
+            watermark.innerHTML = `
+                <div>🌙 Mumbai Ramzan 2025</div>
+                <div>www.oroxonixtech.com</div>
+            `;
+            clonedDoc.body.appendChild(watermark);
+        }
+    }).then(canvas => {
+        if (searchInput) searchInput.style.display = ""; // Show search bar again
+
+        const link = document.createElement('a');
+        link.download = 'ramzan-timetable.jpg';
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+}
+
+        // Update every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
